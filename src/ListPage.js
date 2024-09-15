@@ -3,9 +3,7 @@ import "./ListPageStyle.css";
 
 export default function ListPage() {
     const [devices, setDevices] = useState([
-        { id: 1, avatar: "", title: "Otto", description: "", checked: false },
-        { id: 2, avatar: "", title: "Thornton", description: "", checked: false },
-        { id: 3, avatar: "", title: "", description: "", checked: false },
+       
     ]);
 
     const [editDevice, setEditDevice] = useState(null);
