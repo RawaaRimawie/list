@@ -1,19 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./ListPageStyle.css";
 
 export default function ListPage() {
-    const [devices, setDevices] = useState([
-       
-    ]);
-
+    const [todoList, settodoList] = useState([]);
     const [editDevice, setEditDevice] = useState(null);
     const [newTitle, setNewTitle] = useState("");
     const [newDescription, setNewDescription] = useState("");
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [addTaskTitle, setAddTaskTitle] = useState("");
     const [addTaskDescription, setAddTaskDescription] = useState("");
-    const [addAvatar, setAddAvatar] = useState(""); // New state for avatar
-    const [searchTerm, setSearchTerm] = useState(""); // Search state
+    const [addAvatar, setAddAvatar] = useState(""); // State for avatar image
+    const [searchTerm, setSearchTerm] = useState(""); // State for search functionality
+    const [deleteItemId, setDeleteItemId] = useState(null); // State for delete confirmation
+
+    // Load tasks from localStorage on component mount
+    useEffect(() => {
+        const storedtodoList = localStorage.getItem("todoList");
+        if (storedtodoList) {
+            settodoList(JSON.parse(storedtodoList));
+        }
+    }, []);
+
+    // Save tasks to localStorage whenever todoList state changes
+    useEffect(() => {
+        if (todoList.length > 0) {
+            localStorage.setItem("todoList", JSON.stringify(todoList));
+        }
+    }, [todoList]);
 
     // Handle avatar file input
     const handleFileChange = (e) => {
@@ -28,16 +41,14 @@ export default function ListPage() {
     };
 
     // Search functionality
-    const filteredDevices = devices.filter(device =>
+    const filteredtodoList = todoList.filter(device =>
         device.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
-    // Delete handler with confirmation
-    const handleDeleteClick = (id) => {
-        if (window.confirm("Are you sure you want to delete this task?")) {
-            const newDevices = devices.filter((device) => device.id !== id);
-            setDevices(newDevices);
-        }
+    // Delete handler
+    const handleDelete = () => {
+        settodoList(todoList.filter(device => device.id !== deleteItemId));
+        setDeleteItemId(null);
     };
 
     // Edit handler
@@ -49,7 +60,7 @@ export default function ListPage() {
 
     // Save edited task
     const handleSaveClick = () => {
-        setDevices(devices.map((device) =>
+        settodoList(todoList.map(device =>
             device.id === editDevice.id
                 ? { ...device, title: newTitle, description: newDescription }
                 : device
@@ -62,13 +73,13 @@ export default function ListPage() {
     // Save new task
     const handleAddTask = () => {
         const newTask = {
-            id: devices.length + 1,
-            avatar: addAvatar || `https://robohash.org/${devices.length + 1}`, // Use uploaded avatar or generate random
+            id: todoList.length + 1,
+            avatar: addAvatar || `https://robohash.org/${todoList.length + 1}`,
             title: addTaskTitle,
             description: addTaskDescription,
             checked: false, // Initialize checked state
         };
-        setDevices([...devices, newTask]);
+        settodoList([...todoList, newTask]);
         setIsAddModalOpen(false);
         setAddTaskTitle("");
         setAddTaskDescription("");
@@ -77,7 +88,7 @@ export default function ListPage() {
 
     // Handle checkbox change
     const handleCheckboxChange = (id) => {
-        setDevices(devices.map(device =>
+        settodoList(todoList.map(device =>
             device.id === id
                 ? { ...device, checked: !device.checked }
                 : device
@@ -110,7 +121,7 @@ export default function ListPage() {
                         </tr>
                     </thead>
                     <tbody>
-                        {filteredDevices.map((device) => (
+                        {filteredtodoList.map((device) => (
                             <tr key={device.id} className={device.checked ? "checked" : ""}>
                                 <td>
                                     <input
@@ -138,7 +149,7 @@ export default function ListPage() {
                                     </button>
                                     <button
                                         className="btn btn-delete"
-                                        onClick={() => handleDeleteClick(device.id)}
+                                        onClick={() => setDeleteItemId(device.id)}
                                     >
                                         <i className="fas fa-trash fa-2x"></i>
                                     </button>
@@ -202,11 +213,26 @@ export default function ListPage() {
                                 <input
                                     type="file"
                                     accept="image/*"
-                                    onChange={handleFileChange} // Handle file input for avatar
+                                    onChange={handleFileChange}
                                 />
                             </label>
                             <button type="submit">Add Task</button>
                             <button type="button" onClick={() => setIsAddModalOpen(false)}>Cancel</button>
+                        </form>
+                    </div>
+                </>
+            )}
+
+            {/* Delete Task Modal */}
+            {deleteItemId !== null && (
+                <>
+                    <div className="delete-modal-overlay" onClick={() => setDeleteItemId(null)}></div>
+                    <div className="delete-modal">
+                        <h3>Confirm Delete</h3>
+                        <p>Are you sure you want to delete this task?</p>
+                        <form onSubmit={(e) => { e.preventDefault(); handleDelete(); }}>
+                            <button type="submit">Delete</button>
+                            <button type="button" onClick={() => setDeleteItemId(null)}>Cancel</button>
                         </form>
                     </div>
                 </>
