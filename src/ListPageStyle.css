@@ -4,7 +4,7 @@
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    
+
 }
 
 .container::before {
@@ -13,8 +13,8 @@
     width: 100%;
     height: 100%;
     background: url("./background.jpg") center/cover no-repeat;
-    opacity: 0.5; 
-    z-index: -1; 
+    opacity: 0.5;
+    z-index: -1;
 }
 
 .input-section {
@@ -22,24 +22,24 @@
     justify-content: center;
     align-items: center;
     margin-bottom: 20px;
-    position: relative; 
+    position: relative;
     top: -100px;
 }
 
 #search-field {
-    width: 500px; 
-    font-size: 16px; 
-  }
+    width: 500px;
+    font-size: 16px;
+}
 
 .input-section input {
     padding: 8px 15px 8px 35px;
     border: 1px solid #845a48;
     border-radius: 4px;
     background-color: white;
-    background-image: url('./search.png'); 
+    background-image: url('./search.png');
     background-repeat: no-repeat;
     background-position: 10px center;
-    background-size: 16px; 
+    background-size: 16px;
     flex: 1;
 }
 
@@ -67,22 +67,14 @@
 
 }
 
+
+/* table */
 .table-container {
     width: 100%;
     max-width: 800px;
     margin-top: 20px;
     overflow-x: auto;
 }
-
- 
-
-.table th,
-.table td {
-    padding: 10px 15px;
-    
-}
-    
-
 
 .table thead th {
     background-color: #aaaaaaec;
@@ -97,10 +89,10 @@
 
 .table-container {
     width: 100%;
-    overflow-x: auto; 
-    border: 2px solid #8a3e3e; 
-    border-radius: 8px; 
-    padding: 10px; 
+    overflow-x: auto;
+    border: 2px solid #8a3e3e;
+    border-radius: 8px;
+    padding: 10px;
 }
 
 
@@ -109,7 +101,8 @@
     border-collapse: collapse;
 }
 
-.table th, .table td {
+.table th,
+.table td {
     padding: 8px;
     text-align: left;
 }
@@ -118,23 +111,23 @@
     margin: 0;
 }
 
-
+/* button */
 .btn {
     background: none;
     border: none;
     cursor: pointer;
     margin-right: 10px;
     align-items: center;
-    
+
 }
 
-.btn-edit .fa-edit{
-    background-color: #001aff; 
+.btn-edit .fa-edit {
+    background-color: #001aff;
     color: white;
-    
+
 }
 
-.btn-delete .fa-trash{
+.btn-delete .fa-trash {
     background-color: #dc3545;
     color: white;
 }
@@ -143,8 +136,8 @@
     opacity: 0.8;
 }
 
- 
- .edit-modal {
+
+.edit-modal {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -156,27 +149,27 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     z-index: 1000;
     animation: fadeIn 0.3s ease-in-out;
-  }
-  
-  .edit-modal h2 {
+}
+
+.edit-modal h2 {
     font-size: 24px;
     margin-bottom: 20px;
     color: #333;
-  }
-  
-  .edit-modal form {
+}
+
+.edit-modal form {
     display: flex;
     flex-direction: column;
-  }
-  
-  .edit-modal label {
+}
+
+.edit-modal label {
     margin-bottom: 10px;
     font-size: 16px;
     color: #555;
-  }
-  
-  .edit-modal input,
-  .edit-modal textarea {
+}
+
+.edit-modal input,
+.edit-modal textarea {
     width: 100%;
     padding: 10px;
     margin-bottom: 15px;
@@ -184,14 +177,14 @@
     border-radius: 5px;
     font-size: 14px;
     transition: border 0.2s;
-  }
-  
-  .edit-modal input:focus,
-  .edit-modal textarea:focus {
+}
+
+.edit-modal input:focus,
+.edit-modal textarea:focus {
     border-color: #5cb85c;
-  }
-  
-  .edit-modal button {
+}
+
+.edit-modal button {
     padding: 10px 20px;
     background-color: #5cb85c;
     color: white;
@@ -200,32 +193,20 @@
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.3s;
-  }
-  
-  .edit-modal button:hover {
+}
+
+.edit-modal button:hover {
     background-color: #4cae4c;
-  }
-  
-  .edit-modal button[type="button"] {
+}
+
+.edit-modal button[type="button"] {
     background-color: #d9534f;
     margin-top: 10px;
-  }
-  
-  .edit-modal button[type="button"]:hover {
+}
+
+.edit-modal button[type="button"]:hover {
     background-color: #c9302c;
-  }
-  
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translate(-50%, -60%);
-    }
-    to {
-      opacity: 1;
-      transform: translate(-50%, -50%);
-    }
-  }
-  
+}
 
 
 /* Modal container styling */
@@ -249,6 +230,7 @@
     from {
         opacity: 0;
     }
+
     to {
         opacity: 1;
     }
@@ -270,7 +252,7 @@
 }
 
 /* Input fields styling */
-.add-modal input[type="text"], 
+.add-modal input[type="text"],
 .add-modal textarea {
     width: 100%;
     padding: 0.8rem;
@@ -282,11 +264,11 @@
 }
 
 /* Input fields hover and focus effect */
-.add-modal input[type="text"]:hover, 
+.add-modal input[type="text"]:hover,
 .add-modal textarea:hover,
-.add-modal input[type="text"]:focus, 
+.add-modal input[type="text"]:focus,
 .add-modal textarea:focus {
-    border-color: #c9856a; 
+    border-color: #c9856a;
 }
 
 /* Buttons styling */
@@ -297,7 +279,7 @@
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
-    
+
 }
 
 /* Add Task button */
@@ -334,8 +316,8 @@
 
 /* Add a line-through effect on the row when checked */
 .checked {
-    text-decoration: line-through ;
-    color: #eb0101; 
+    text-decoration: line-through;
+    color: #eb0101;
 }
 
 /* Optional: Style the checkbox */
@@ -344,11 +326,11 @@
 }
 
 .avatar-image {
-    width: 50px; 
-    height: 50px; 
-    border-radius: 50%; 
-    object-fit: cover; 
-    border: 2px solid #ddd; 
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ddd;
 }
 
 
@@ -373,6 +355,7 @@
     from {
         opacity: 0;
     }
+
     to {
         opacity: 1;
     }
@@ -382,7 +365,8 @@
 .delete-modal h3 {
     font-size: 1.8rem;
     margin-bottom: 1rem;
-    color: #d9534f; /* Red color for delete confirmation */
+    color: #d9534f;
+    /* Red color for delete confirmation */
     text-align: center;
 }
 

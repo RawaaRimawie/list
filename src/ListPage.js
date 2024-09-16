@@ -3,7 +3,7 @@ import "./ListPageStyle.css";
 
 export default function ListPage() {
     const [todoList, settodoList] = useState([]);
-    const [editDevice, setEditDevice] = useState(null);
+    const [edittodo, setedittodo] = useState(null);
     const [newTitle, setNewTitle] = useState("");
     const [newDescription, setNewDescription] = useState("");
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
@@ -41,31 +41,31 @@ export default function ListPage() {
     };
 
     // Search functionality
-    const filteredtodoList = todoList.filter(device =>
-        device.title.toLowerCase().includes(searchTerm.toLowerCase())
+    const filteredtodoList = todoList.filter(todoList =>
+        todoList.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     // Delete handler
     const handleDelete = () => {
-        settodoList(todoList.filter(device => device.id !== deleteItemId));
+        settodoList(todoList.filter(todoList => todoList.id !== deleteItemId));
         setDeleteItemId(null);
     };
 
     // Edit handler
-    const handleEditClick = (device) => {
-        setEditDevice(device);
-        setNewTitle(device.title);
-        setNewDescription(device.description);
+    const handleEditClick = (todoList) => {
+        setedittodo(todoList);
+        setNewTitle(todoList.title);
+        setNewDescription(todoList.description);
     };
 
     // Save edited task
     const handleSaveClick = () => {
-        settodoList(todoList.map(device =>
-            device.id === editDevice.id
-                ? { ...device, title: newTitle, description: newDescription }
-                : device
+        settodoList(todoList.map(todoList =>
+            todoList.id === edittodo.id
+                ? { ...todoList, title: newTitle, description: newDescription }
+                : todoList
         ));
-        setEditDevice(null);
+        setedittodo(null);
         setNewTitle("");
         setNewDescription("");
     };
@@ -88,10 +88,10 @@ export default function ListPage() {
 
     // Handle checkbox change
     const handleCheckboxChange = (id) => {
-        settodoList(todoList.map(device =>
-            device.id === id
-                ? { ...device, checked: !device.checked }
-                : device
+        settodoList(todoList.map(todoList =>
+            todoList.id === id
+                ? { ...todoList, checked: !todoList.checked }
+                : todoList
         ));
     };
 
@@ -106,7 +106,10 @@ export default function ListPage() {
                     value={searchTerm} // Bind input value to searchTerm
                     onChange={(e) => setSearchTerm(e.target.value)} // Update searchTerm on input change
                 />
-                <button onClick={() => setIsAddModalOpen(true)}>Add</button>
+                <button onClick={() => setIsAddModalOpen(true)}>
+                    <i className="fas fa-plus"></i> Add
+                </button>
+
             </div>
 
             <div className="table-container">
@@ -121,35 +124,35 @@ export default function ListPage() {
                         </tr>
                     </thead>
                     <tbody>
-                        {filteredtodoList.map((device) => (
-                            <tr key={device.id} className={device.checked ? "checked" : ""}>
+                        {filteredtodoList.map((todoList) => (
+                            <tr key={todoList.id} className={todoList.checked ? "checked" : ""}>
                                 <td>
                                     <input
                                         type="checkbox"
                                         className="checkbox-select"
-                                        checked={device.checked}
-                                        onChange={() => handleCheckboxChange(device.id)}
+                                        checked={todoList.checked}
+                                        onChange={() => handleCheckboxChange(todoList.id)}
                                     />
                                 </td>
                                 <td>
-                                    {device.avatar ? (
-                                        <img src={device.avatar} alt="Avatar" className="avatar-image" />
+                                    {todoList.avatar ? (
+                                        <img src={todoList.avatar} alt="Avatar" className="avatar-image" />
                                     ) : (
                                         "No Avatar"
                                     )}
                                 </td>
-                                <td>{device.title}</td>
-                                <td>{device.description}</td>
+                                <td>{todoList.title}</td>
+                                <td>{todoList.description}</td>
                                 <td>
                                     <button
                                         className="btn btn-edit"
-                                        onClick={() => handleEditClick(device)}
+                                        onClick={() => handleEditClick(todoList)}
                                     >
                                         <i className="fas fa-edit fa-2x"></i>
                                     </button>
                                     <button
                                         className="btn btn-delete"
-                                        onClick={() => setDeleteItemId(device.id)}
+                                        onClick={() => setDeleteItemId(todoList.id)}
                                     >
                                         <i className="fas fa-trash fa-2x"></i>
                                     </button>
@@ -161,7 +164,7 @@ export default function ListPage() {
             </div>
 
             {/* Edit Task Modal */}
-            {editDevice && (
+            {edittodo && (
                 <div className="edit-modal">
                     <h3>Edit Task</h3>
                     <form onSubmit={(e) => { e.preventDefault(); handleSaveClick(); }}>
@@ -181,7 +184,7 @@ export default function ListPage() {
                             />
                         </label>
                         <button type="submit">Save</button>
-                        <button type="button" onClick={() => setEditDevice(null)}>Cancel</button>
+                        <button type="button" onClick={() => setedittodo(null)}>Cancel</button>
                     </form>
                 </div>
             )}
@@ -191,7 +194,7 @@ export default function ListPage() {
                 <>
                     <div className="add-modal-overlay" onClick={() => setIsAddModalOpen(false)}></div>
                     <div className="add-modal">
-                        <h3>Add Task</h3>
+                        <h3>New ToDo</h3>
                         <form onSubmit={(e) => { e.preventDefault(); handleAddTask(); }}>
                             <label>
                                 Task Title:
@@ -226,7 +229,7 @@ export default function ListPage() {
             {/* Delete Task Modal */}
             {deleteItemId !== null && (
                 <>
-                    <div className="delete-modal-overlay" onClick={() => setDeleteItemId(null)}></div>
+                    <div className="delete-modal-overlay"></div>
                     <div className="delete-modal">
                         <h3>Confirm Delete</h3>
                         <p>Are you sure you want to delete this task?</p>

@@ -8,7 +8,7 @@ export default function Home() {
         <div className="container2">
             <h3>Hello...(:</h3>
             <h2>Time to organize your life</h2>
-            <button onClick={() => navigate("/list")}>
+            <button onClick={() => navigate("/listpage")}>
                 Get Started
             </button>
         </div>
